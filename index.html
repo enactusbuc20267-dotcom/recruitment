@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+<title>Enactus BUC — Recruitment Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ TOAST CONTAINER ============ -->
+<div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+<!-- ============ GLOBAL LOADING OVERLAY ============ -->
+<div id="global-loader" class="global-loader hidden">
+  <div class="spinner"></div>
+</div>
+
+<!-- ============ LOGIN SCREEN ============ -->
+<section id="login-screen" class="screen login-screen">
+  <div class="login-bg-type" aria-hidden="true">
+    <span>ENACTUS</span><span>ENACTUS</span><span>ENACTUS</span>
+    <span>ENACTUS</span><span>ENACTUS</span><span>ENACTUS</span>
+    <span>ENACTUS</span><span>ENACTUS</span><span>ENACTUS</span>
+  </div>
+  <div class="glow glow-a" aria-hidden="true"></div>
+  <div class="glow glow-b" aria-hidden="true"></div>
+
+  <div class="login-card glass-card">
+    <div class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 48 48" width="40" height="40">
+        <circle cx="24" cy="24" r="23" fill="none" stroke="url(#ringGrad)" stroke-width="2"/>
+        <text x="24" y="31" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="700" font-size="20" fill="#FFD24A">E</text>
+        <defs>
+          <linearGradient id="ringGrad" x1="0" y1="0" x2="48" y2="48">
+            <stop offset="0" stop-color="#FFD24A"/>
+            <stop offset="1" stop-color="#F5EBC5"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <h1 class="login-title">ENACTUS BUC</h1>
+    <p class="login-subtitle">Recruitment Dashboard</p>
+
+    <form id="login-form" class="login-form" autocomplete="off" novalidate>
+      <label class="field-label" for="email-input">Work or student email</label>
+      <input
+        id="email-input"
+        class="text-input"
+        type="email"
+        placeholder="name@example.com"
+        required
+        autocomplete="email"
+        inputmode="email"
+      />
+      <span id="email-error" class="field-error" role="alert"></span>
+
+      <button type="submit" id="login-btn" class="btn btn-primary btn-block">
+        <span class="btn-label">Continue</span>
+        <svg class="btn-spinner hidden" viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="42" stroke-dashoffset="10"/></svg>
+      </button>
+    </form>
+
+    <p class="login-footnote">Access is limited to registered HR members and committee heads.</p>
+  </div>
+</section>
+
+<!-- ============ HR DASHBOARD ============ -->
+<section id="hr-dashboard" class="screen dashboard-screen hidden">
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="brand-mark small" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="28" height="28">
+          <circle cx="24" cy="24" r="23" fill="none" stroke="#FFD24A" stroke-width="2"/>
+          <text x="24" y="31" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="700" font-size="20" fill="#FFD24A">E</text>
+        </svg>
+      </div>
+      <div>
+        <h1 class="committee-title" id="hr-committee-title">Committee</h1>
+        <p class="committee-sub">Recruitment day dashboard</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="user-pill" id="hr-user-email">—</span>
+      <button class="btn btn-ghost btn-icon" id="hr-logout-btn" title="Log out" aria-label="Log out">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="dashboard-main">
+    <div class="stats-grid" id="hr-stats-grid"></div>
+
+    <div class="toolbar">
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="hr-search" class="search-input" placeholder="Search applicant…" autocomplete="off">
+      </div>
+      <div class="filter-chips" id="hr-filter-chips">
+        <button class="chip active" data-status="all">All</button>
+        <button class="chip" data-status="Waiting">Waiting</button>
+        <button class="chip" data-status="In Progress">In Progress</button>
+        <button class="chip" data-status="Accepted">Accepted</button>
+        <button class="chip" data-status="Rejected">Rejected</button>
+        <button class="chip" data-status="Need More Time">Need More Time</button>
+      </div>
+    </div>
+
+    <div id="hr-applicants-grid" class="applicants-grid"></div>
+    <div id="hr-empty-state" class="empty-state hidden">
+      <div class="empty-illustration">☺</div>
+      <h3>No applicants match here</h3>
+      <p>Try a different search term or clear your filter.</p>
+    </div>
+  </main>
+</section>
+
+<!-- ============ JOKER DASHBOARD ============ -->
+<section id="joker-dashboard" class="screen dashboard-screen hidden">
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="brand-mark small" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="28" height="28">
+          <circle cx="24" cy="24" r="23" fill="none" stroke="#FFD24A" stroke-width="2"/>
+          <text x="24" y="31" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="700" font-size="20" fill="#FFD24A">E</text>
+        </svg>
+      </div>
+      <div>
+        <h1 class="committee-title">All Committees</h1>
+        <p class="committee-sub">all recruitment overview</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="user-pill" id="joker-user-email">—</span>
+      <button class="btn btn-ghost btn-icon" id="joker-logout-btn" title="Log out" aria-label="Log out">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <nav class="committee-switcher" id="committee-switcher"></nav>
+
+  <main class="dashboard-main">
+    <div class="stats-grid" id="joker-stats-grid"></div>
+
+    <section class="live-section">
+      <div class="section-heading">
+        <h2>Live interviews</h2>
+        <span class="live-dot" aria-hidden="true"></span>
+      </div>
+      <div id="live-interviews-list" class="live-list"></div>
+      <div id="live-empty-state" class="empty-state compact hidden">
+        <p>No interviews in progress right now.</p>
+      </div>
+    </section>
+
+    <div class="toolbar">
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="joker-search" class="search-input" placeholder="Search applicant…" autocomplete="off">
+      </div>
+      <div class="filter-chips" id="joker-filter-chips">
+        <button class="chip active" data-status="all">All</button>
+        <button class="chip" data-status="Waiting">Waiting</button>
+        <button class="chip" data-status="In Progress">In Progress</button>
+        <button class="chip" data-status="Accepted">Accepted</button>
+        <button class="chip" data-status="Rejected">Rejected</button>
+        <button class="chip" data-status="Need More Time">Need More Time</button>
+      </div>
+    </div>
+
+    <div id="joker-applicants-grid" class="applicants-grid"></div>
+    <div id="joker-empty-state" class="empty-state hidden">
+      <div class="empty-illustration">☺</div>
+      <h3>No applicants match here</h3>
+      <p>Try a different search term or clear your filter.</p>
+    </div>
+  </main>
+</section>
+
+<!-- ============ INTERVIEW MODAL ============ -->
+<div id="interview-modal-backdrop" class="modal-backdrop hidden">
+  <div class="modal" id="interview-modal" role="dialog" aria-modal="true" aria-labelledby="modal-applicant-name">
+    <button class="modal-close" id="modal-close-btn" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div class="modal-header">
+      <div class="modal-avatar" id="modal-avatar">A</div>
+      <div>
+        <h2 class="modal-name" id="modal-applicant-name">Applicant Name</h2>
+        <span class="modal-status-badge" id="modal-status-badge">Waiting</span>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="detail-grid">
+        <div class="detail-item">
+          <span class="detail-label">Email</span>
+          <span class="detail-value" id="modal-email">—</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Phone</span>
+          <span class="detail-value" id="modal-phone">—</span>
+        </div>
+        <div class="detail-item full">
+          <span class="detail-label">Faculty</span>
+          <span class="detail-value" id="modal-faculty">—</span>
+        </div>
+      </div>
+
+      <div class="answer-block">
+        <span class="detail-label">Why Enactus?</span>
+        <p class="answer-text" id="modal-why-enactus">—</p>
+      </div>
+
+      <div class="answer-block">
+        <span class="detail-label">Why this committee?</span>
+        <p class="answer-text" id="modal-why-committee">—</p>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-decision btn-need-time" id="modal-need-time-btn">
+        <span class="btn-label">Need More Time</span>
+      </button>
+      <button class="btn btn-decision btn-reject" id="modal-reject-btn">
+        <span class="btn-label">Reject</span>
+      </button>
+      <button class="btn btn-decision btn-accept" id="modal-accept-btn">
+        <span class="btn-label">Accept</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
