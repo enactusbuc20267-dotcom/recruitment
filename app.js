@@ -432,6 +432,7 @@ console.log("COMMITTEE VALUE:", committee);
     if (showFullLoader) showLoader();
     try {
       const results = await Promise.all(
+         console.log("JOKER DATA:", results);
         state.user.committees.map((committee) =>
           apiGetApplicants(committee, state.user.email)
             .then((res) => extractApplicantsArray(res).map((r) => normalizeApplicant(r, committee)))
