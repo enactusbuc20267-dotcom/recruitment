@@ -12,7 +12,7 @@
 
   const CONFIG = {
     API_BASE:
-      'https://script.google.com/macros/s/AKfycby5xcIKs7DaLCpr8qmZbDq9H1_9_54Pi1l2U-MXNw2YVBmz-p92Q45ctdvTMzN5s8TI/exec',
+      'https://script.google.com/macros/s/AKfycbzqis7KIVd-ZjyZ9-ZwaVEWSTWdlN2L3AMKq8ZR7EY0zuTLlGO9qRNuaxRZa-XJThdj/exec',
     POLL_INTERVAL_MS: 5000,
     STORAGE_KEY_EMAIL: 'enactus_recruit_email',
     COMMITTEES: ['PR', 'HR', 'Media', 'Marketing', 'Project', 'Logistics', 'Presentation'],
