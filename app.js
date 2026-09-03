@@ -438,7 +438,6 @@ console.log("COMMITTEE VALUE:", committee);
             .catch(() => [])
         )
       );
-        console.log("JOKER DATA:", results);
       state.jokerApplicants = results.flat();
       renderJokerStats();
       renderLiveInterviews();
