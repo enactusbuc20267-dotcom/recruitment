@@ -202,12 +202,18 @@
   'hrEmail',
   'claimedByEmail'
 ]) || '';
-    const committee = pick(raw, ['committee']) || fallbackCommittee || '';
+   const committee = pick(raw, [
+  'committee',
+  'selectedCommittee',
+  'selected committee',
+  'Selected Committee'
+]) || fallbackCommittee || '';
 
     let facultyDisplay = faculty;
     if (faculty && level) facultyDisplay = `${faculty} — ${level}`;
     else if (!faculty && level) facultyDisplay = String(level);
-
+console.log("RAW COMMITTEE:", raw);
+console.log("COMMITTEE VALUE:", committee);
     return {
       rowNumber: rowNumber !== undefined ? Number(rowNumber) : null,
       name: String(name).trim(),
