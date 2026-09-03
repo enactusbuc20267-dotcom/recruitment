@@ -475,13 +475,32 @@
 
 function renderJokerApplicants() {
 
-  console.log("COUNT:", state.jokerApplicants.length);
-  console.log("DATA:", JSON.stringify(state.jokerApplicants));
+  const scoped = state.jokerApplicants.filter(a => {
+
+    const applicantCommittee =
+      String(a.committee || "")
+        .trim()
+        .toUpperCase();
+
+    const activeCommittee =
+      String(state.activeCommittee || "")
+        .trim()
+        .toUpperCase();
+
+    return applicantCommittee === activeCommittee;
+
+  });
+
+  const filtered = filterApplicants(
+    scoped,
+    state.jokerFilterStatus,
+    state.jokerSearchTerm
+  );
 
   renderApplicantsGrid(
     dom.jokerApplicantsGrid,
     dom.jokerEmptyState,
-    state.jokerApplicants,
+    filtered,
     'JOKER'
   );
 
