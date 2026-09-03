@@ -187,10 +187,21 @@
     const whyCommittee = pick(raw, [
       'whyCommittee', 'whyThisCommittee', 'whyDoYouWantToJoinThisCommittee', 'committeeReason',
     ]) || '';
-    const status = pick(raw, ['status']) || STATUS.WAITING;
-    const claimedBy = pick(raw, [
-      'claimedBy', 'hrName', 'interviewedBy', 'interviewer', 'hr', 'hrEmail', 'claimedByEmail',
-    ]) || '';
+   const status = pick(raw, [
+  'status',
+  'interviewStatus',
+  'interviewstatus'
+]) || STATUS.WAITING;
+   const claimedBy = pick(raw, [
+  'claimedBy',
+  'takenBy',
+  'interviewedBy',
+  'hrName',
+  'interviewer',
+  'hr',
+  'hrEmail',
+  'claimedByEmail'
+]) || '';
     const committee = pick(raw, ['committee']) || fallbackCommittee || '';
 
     let facultyDisplay = faculty;
