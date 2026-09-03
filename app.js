@@ -474,7 +474,14 @@
   }
 
   function renderJokerApplicants() {
-    const scoped = state.jokerApplicants.filter((a) => a.committee === state.activeCommittee);
+   console.log("ACTIVE COMMITTEE:", state.activeCommittee);
+console.log("JOKER APPLICANTS:", state.jokerApplicants);
+console.log("SCOPED:", scoped);
+     const filtered = filterApplicants(
+  scoped,
+  state.jokerFilterStatus,
+  state.jokerSearchTerm
+);
     const filtered = filterApplicants(scoped, state.jokerFilterStatus, state.jokerSearchTerm);
     renderApplicantsGrid(dom.jokerApplicantsGrid, dom.jokerEmptyState, filtered, 'JOKER');
   }
