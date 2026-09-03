@@ -473,18 +473,41 @@
       .join('');
   }
 
-  function renderJokerApplicants() {
-   console.log("ACTIVE COMMITTEE:", state.activeCommittee);
-console.log("JOKER APPLICANTS:", state.jokerApplicants);
-console.log("SCOPED:", scoped);
-     const filtered = filterApplicants(
-  scoped,
-  state.jokerFilterStatus,
-  state.jokerSearchTerm
-);
-    const filtered = filterApplicants(scoped, state.jokerFilterStatus, state.jokerSearchTerm);
-    renderApplicantsGrid(dom.jokerApplicantsGrid, dom.jokerEmptyState, filtered, 'JOKER');
-  }
+function renderJokerApplicants() {
+
+  const scoped = state.jokerApplicants.filter(a => {
+
+    const applicantCommittee =
+      String(a.committee || "")
+        .trim()
+        .toUpperCase();
+
+    const activeCommittee =
+      String(state.activeCommittee || "")
+        .trim()
+        .toUpperCase();
+
+    return applicantCommittee === activeCommittee;
+
+  });
+
+  console.log("ACTIVE:", state.activeCommittee);
+  console.log("SCOPED:", scoped);
+
+  const filtered = filterApplicants(
+    scoped,
+    state.jokerFilterStatus,
+    state.jokerSearchTerm
+  );
+
+  renderApplicantsGrid(
+    dom.jokerApplicantsGrid,
+    dom.jokerEmptyState,
+    filtered,
+    'JOKER'
+  );
+
+}
 
   /* ------------------------------------------------------------------ *
    * SHARED RENDER HELPERS
