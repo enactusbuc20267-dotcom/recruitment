@@ -475,7 +475,8 @@
 
 function renderJokerApplicants() {
 
-  console.log("ALL APPLICANTS:", state.jokerApplicants);
+  console.log("COUNT:", state.jokerApplicants.length);
+  console.log("DATA:", JSON.stringify(state.jokerApplicants));
 
   renderApplicantsGrid(
     dom.jokerApplicantsGrid,
