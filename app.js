@@ -475,40 +475,16 @@
 
 function renderJokerApplicants() {
 
-  const scoped = state.jokerApplicants.filter(a => {
-
-    const applicantCommittee =
-      String(a.committee || "")
-        .trim()
-        .toUpperCase();
-
-    const activeCommittee =
-      String(state.activeCommittee || "")
-        .trim()
-        .toUpperCase();
-
-    return applicantCommittee === activeCommittee;
-
-  });
-
-  console.log("ACTIVE:", state.activeCommittee);
-  console.log("SCOPED:", scoped);
-
-  const filtered = filterApplicants(
-    scoped,
-    state.jokerFilterStatus,
-    state.jokerSearchTerm
-  );
+  console.log("ALL APPLICANTS:", state.jokerApplicants);
 
   renderApplicantsGrid(
     dom.jokerApplicantsGrid,
     dom.jokerEmptyState,
-    filtered,
+    state.jokerApplicants,
     'JOKER'
   );
 
 }
-
   /* ------------------------------------------------------------------ *
    * SHARED RENDER HELPERS
    * ------------------------------------------------------------------ */
